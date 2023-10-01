@@ -1,0 +1,46 @@
+.user-container {
+    min-width: 50%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+.user {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+        rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+        rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+.user h4 {
+    font-size: 20px;
+}
+.user h4 span {
+    padding-left: 10px;
+}
+.user img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.btn {
+    padding: 10px 40px;
+    cursor: pointer;
+    outline: none;
+    background-color: #df4930;
+    border: none;
+    color: white;
+    font-size: large;
+    border-radius: 2px;
+    align-self: center;
+}
+.btn:hover,
+.btn:active {
+    color: #df4930;
+    background-color: white;
+    border: 1px solid #df4930;
+}

@@ -1,0 +1,24 @@
+.login {
+    width: 100px;
+    padding: 15px 25px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    cursor: pointer;
+}
+.google {
+    background-color: #df4930;
+}
+.fb {
+    background-color: #507cc0;
+}
+.github {
+    background-color: black;
+}
+.icon {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
