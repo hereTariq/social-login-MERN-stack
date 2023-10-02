@@ -13,10 +13,17 @@ router.get(
     })
 );
 
-router.get('/logout', (req, res, next) => {
-    req.logout();
-    res.redirect(process.env.LOGIN_FAILURE_URL);
-});
+router.get(
+    '/github',
+    passport.authenticate('github', { scope: ['user:email'] })
+);
+router.get(
+    '/github/callback',
+    passport.authenticate('github', {
+        failureRedirect: process.env.LOGIN_FAILURE_URL,
+        successRedirect: process.env.LOGIN_SUCCESS_URL,
+    })
+);
 
 router.get('/login/success', (req, res, next) => {
     if (req.user) {
@@ -24,4 +31,9 @@ router.get('/login/success', (req, res, next) => {
     }
     res.status(401).json({ message: 'Unauthorized', success: false });
 });
+router.get('/logout', (req, res, next) => {
+    req.logout();
+    res.redirect(process.env.LOGIN_FAILURE_URL);
+});
+
 module.exports = router;
