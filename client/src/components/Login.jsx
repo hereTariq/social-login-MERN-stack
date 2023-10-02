@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaGoogle, FaGithub } from 'react-icons/fa';
+import React from 'react';
+import { FaGoogle, FaGithub, FaFacebook } from 'react-icons/fa';
 import '../css/login.css';
 
 function Login() {
@@ -9,6 +8,9 @@ function Login() {
     };
     const handleGithubLogin = async (e) => {
         window.open('http://localhost:3000/auth/github', '_self');
+    };
+    const handleFacebookLogin = async (e) => {
+        window.open('http://localhost:3000/auth/facebook', '_self');
     };
     return (
         <main className="container">
@@ -20,6 +22,10 @@ function Login() {
             <div className="login github" onClick={handleGithubLogin}>
                 <FaGithub size={40} className="icon" />
                 Github
+            </div>
+            <div className="login facebook" onClick={handleFacebookLogin}>
+                <FaFacebook size={40} className="icon" />
+                Facebook
             </div>
         </main>
     );

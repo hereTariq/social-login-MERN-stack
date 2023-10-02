@@ -24,6 +24,14 @@ router.get(
         successRedirect: process.env.LOGIN_SUCCESS_URL,
     })
 );
+router.get('/facebook', passport.authenticate('facebook'));
+router.get(
+    '/facebook/callback',
+    passport.authenticate('facebook', {
+        failureRedirect: process.env.LOGIN_SUCCESS_URL,
+        successRedirect: process.env.LOGIN_FAILURE_URL,
+    })
+);
 
 router.get('/login/success', (req, res, next) => {
     if (req.user) {

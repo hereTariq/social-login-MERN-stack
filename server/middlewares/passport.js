@@ -1,8 +1,12 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const User = require('../models/user');
 
+/**
+ * google login strategy
+ */
 passport.use(
     new GoogleStrategy(
         {
@@ -27,6 +31,9 @@ passport.use(
     )
 );
 
+/**
+ * github login strategy
+ */
 passport.use(
     new GitHubStrategy(
         {
@@ -42,6 +49,33 @@ passport.use(
                     username: profile.username,
                     displayName: profile.displayName,
                     email: profile?.emails[0].value || '',
+                    picture: profile.photos[0].value,
+                });
+            }
+
+            done(null, user);
+        }
+    )
+);
+
+/**
+ * facebook login strategy
+ */
+passport.use(
+    new FacebookStrategy(
+        {
+            clientID: process.env.FACEBOOK_APP_ID,
+            clientSecret: process.env.FACEBOOK_APP_SECRET,
+            callbackURL: process.env.FACEBOOK_CALLBACK_URL,
+            profileFields: ['id', 'displayName', 'photos', 'emails', 'name'],
+        },
+        async function (req, accessToken, refreshToken, profile, done) {
+            let user = await User.findOne({ facebookId: profile.id });
+            if (!user) {
+                user = await User.create({
+                    facebookId: profile.id,
+                    displayName: profile.displayName,
+                    username: profile.name.givenName,
                     picture: profile.photos[0].value,
                 });
             }
