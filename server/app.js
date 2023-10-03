@@ -3,7 +3,6 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieSession = require('cookie-session');
-const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const authRoutes = require('./routes/user');
 
@@ -15,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
     cors({
-        origin,
+        origin: '*',
         methods: 'GET,POST,PUT,DELETE',
         credentials: true,
     })
@@ -28,9 +27,13 @@ app.use(
         httpOnly: true,
     })
 );
-// app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.get('/', (req, res) => {
+    res.send('Hello');
+});
+
 app.use('/auth', authRoutes);
 mongoose
     .connect(process.env.MONGO_URI)
@@ -39,6 +42,11 @@ mongoose
     })
     .catch((err) => console.log(err.message));
 const PORT = process.env.PORT || 3000;
+
+app.use((err, req, res, next) => {
+    console.log(err.message);
+    res.status(500).json({ error: err.message });
+});
 
 app.listen(PORT, () =>
     console.log('server is running on http://localhost:' + PORT)
